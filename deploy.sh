@@ -4,7 +4,7 @@ APP_NAME="atlanta"
 ENTRY_POINT="server.js"
 FRONTEND_DIR="frontend" 
 
-cd /home/ec2-user/your-express-app || exit
+cd /home/ec2-user/atlanta || exit
 git pull origin main
 npm install
 
