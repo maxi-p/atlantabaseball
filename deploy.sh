@@ -1,10 +1,10 @@
 #!/bin/bash
 
-APP_NAME="atlanta"
+APP_NAME="atlantabaseball"
 ENTRY_POINT="server.js"
 FRONTEND_DIR="frontend" 
 
-cd /home/ec2-user/atlanta || exit
+cd /home/ec2-user/atlantabaseball || exit
 git pull origin main
 npm install
 
