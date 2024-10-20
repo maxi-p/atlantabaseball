@@ -249,6 +249,8 @@ const Table = () => {
     loadPlays();
   }, []);
 
+  console.log(plays);
+
   const loadPlays = async () => {
     const res = await axios.get('/v1/play');
     setLoading(false);

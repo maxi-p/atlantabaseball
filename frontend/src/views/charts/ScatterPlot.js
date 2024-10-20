@@ -3,29 +3,10 @@ import axios from 'axios'
 import Plot from 'react-plotly.js';
 import {
   CCard,
-  CCardBody,
-  CCardHeader,
   CCol,
   CRow,
-  CTable,
-  CTableBody,
-  CTableHead,
-  CTableHeaderCell,
-  CTableDataCell,
-  CTableRow,
   CSpinner,
 } from '@coreui/react'
-import {
-  getCoreRowModel,
-  flexRender,
-  getFacetedMinMaxValues,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
 
 // batter
 // batterId
@@ -41,13 +22,6 @@ import {
 // playOutcome
 // videoLink
 // _id
-
-const formatDate = (timestamp) => {
-  const date = new Date(timestamp);
-  const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
-  const day = date.getDay() + 1 < 10 ? `0${date.getDay() + 1}` : `${date.getDay() + 1}`;
-  return `${month}/${day}/${date.getFullYear() - 2000}`;
-};
 
 const xyOptions = [
   "Avg_Exit_Speed",

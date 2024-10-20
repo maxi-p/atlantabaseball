@@ -1,6 +1,8 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
+  cilBorderOuter,
+  cilChart,
   cilChartLine,
   cilSpreadsheet,
 } from '@coreui/icons'
@@ -26,6 +28,12 @@ const _nav = [
     name: 'Scatter Plots',
     to: '/scatter-plot',
     icon: <CIcon icon={cilChartLine} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Heatmap',
+    to: '/heatmap',
+    icon: <CIcon icon={cilBorderOuter} customClassName="nav-icon" />,
   },
 ]
 
