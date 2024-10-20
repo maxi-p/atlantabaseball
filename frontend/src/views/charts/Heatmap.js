@@ -5,6 +5,7 @@ import {
   CCard,
   CCol,
   CRow,
+  CSpinner,
 } from '@coreui/react';
 
 const options = [
@@ -17,24 +18,22 @@ const options = [
 ];
 
 const Heatmap = () => {
+  const [loading, setLoading] = React.useState(true);
   const [heatmapMatrix, setHeatmapMatrix] = React.useState([]);
   const [angleBins, setAngleBins] = React.useState([]);
   const [outcomes, setOutcomes] = React.useState([]);
-  const [data, setDate] = React.useState(null);
+  const [data, setData] = React.useState(null);
   const [option, setOption] = React.useState("launchAngle")
 
   React.useEffect(() => {
     if (data) {
-      // Process data to create heatmap
       const selectedOption = data.map(entry => entry[option]);
       const minAngle = Math.min(...selectedOption);
       const maxAngle = Math.max(...selectedOption);
 
-      // Define the number of bins
       const numBins = 8;
       const binSize = (maxAngle - minAngle) / numBins;
 
-      // Create bins dynamically
       const bins = Array.from({ length: numBins }, (_, i) => {
         const lowerBound = (minAngle + i * binSize).toFixed(2);
         const upperBound = (minAngle + (i + 1) * binSize).toFixed(2);
@@ -45,10 +44,8 @@ const Heatmap = () => {
       const outcomes = [...new Set(data.map(entry => entry.playOutcome))];
       setOutcomes(outcomes);
 
-      // Prepare the heatmap matrix
       const matrix = Array.from({ length: bins.length }, () => Array(outcomes.length).fill(0));
 
-      // Function to determine the bin for a launch angle
       const getBinIndex = (angle) => {
         for (let i = 0; i < bins.length; i++) {
           const [lower, upper] = bins[i].split(' to ').map(Number);
@@ -56,15 +53,14 @@ const Heatmap = () => {
             return i;
           }
         }
-        return -1; // Out of range
+        return -1;
       };
 
-      // Populate the heatmap matrix
       data.forEach(entry => {
         const binIndex = getBinIndex(entry.launchAngle);
         const outcomeIndex = outcomes.indexOf(entry.playOutcome);
         if (binIndex !== -1 && outcomeIndex !== -1) {
-          matrix[binIndex][outcomeIndex] += 1; // Increment count for the corresponding cell
+          matrix[binIndex][outcomeIndex] += 1;
         }
       });
 
@@ -75,7 +71,8 @@ const Heatmap = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get('/v1/play');
-        setDate(res.data.plays);
+        setData(res.data.plays);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -98,7 +95,7 @@ const Heatmap = () => {
               </option>
             ))}
           </select>
-          <Plot
+          {loading || !data ? <CSpinner className="mx-auto" /> : (<Plot
             data={[
               {
                 z: heatmapMatrix,
@@ -126,7 +123,7 @@ const Heatmap = () => {
               },
             }}
             config={{ responsive: true }}
-          />
+          />)}
         </CCard>
       </CCol>
     </CRow>
