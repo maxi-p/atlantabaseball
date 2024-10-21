@@ -6,6 +6,7 @@ import {
   CCol,
   CRow,
   CSpinner,
+  CFormSelect
 } from '@coreui/react'
 
 // batter
@@ -133,17 +134,15 @@ const ScatterPlot = () => {
     <CRow>
       <CCol xs={12}>
         <CCard className="mb-4">
-          <select
-            onChange={e => setXAxis(e.target.value)}
-            value={xAxis}
-          >
+          <CFormSelect onChange={e => setXAxis(e.target.value)}
+            value={xAxis}>
             {xyOptions.map(value => (
               <option value={value} key={value}>
                 {value}
               </option>
             ))}
-          </select>
-          <select
+          </CFormSelect>
+          <CFormSelect
             onChange={e => setYAxis(e.target.value)}
             value={yAxis}
           >
@@ -152,8 +151,8 @@ const ScatterPlot = () => {
                 {value}
               </option>
             ))}
-          </select>
-          <select
+          </CFormSelect>
+          <CFormSelect
             onChange={e => setSize(e.target.value)}
             value={size}
           >
@@ -162,7 +161,7 @@ const ScatterPlot = () => {
                 {value}
               </option>
             ))}
-          </select>
+          </CFormSelect>
           {loading || !data ? <CSpinner className="mx-auto" /> : (
             <Plot
               data={[

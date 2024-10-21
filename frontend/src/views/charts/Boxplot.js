@@ -6,6 +6,7 @@ import {
   CCol,
   CRow,
   CSpinner,
+  CFormSelect,
 } from '@coreui/react';
 
 const options = [
@@ -71,8 +72,8 @@ const Boxplot = () => {
   return (
     <CRow>
       <CCol xs={12}>
-        <CCard className="mb-4">
-          <select
+        <CCard className="mb-4 d-flex justify-content-center align-items-center">
+          <CFormSelect
             onChange={e => setOption(e.target.value)}
             value={option}
           >
@@ -81,7 +82,7 @@ const Boxplot = () => {
                 {value}
               </option>
             ))}
-          </select>
+          </CFormSelect>
           {loading || !data ? <CSpinner className="mx-auto" /> : (<Plot
             data={boxplotData}
             layout={{
